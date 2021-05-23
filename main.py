@@ -20,22 +20,23 @@ with open('recipes.txt', 'r', encoding='utf-8') as f:
 def get_shop_list_by_dishes(dishes, person_count, cook_dict):
     one_dict = {}
     new_dict = {}
-    if dishes in cook_dict.keys():
-        for ing in cook_dict[dishes]:
-            new_key = ing['ingredient_name']
-            items = ['measure', 'quantity']
-            for item in items:
-                one_dict[item] = ing[item]
+    for dish in dishes:
+        if dish in cook_dict:
+            for ing in cook_dict[dish]:
+                new_key = ing['ingredient_name']
+                items = ['measure', 'quantity']
+                for item in items:
+                    one_dict[item] = ing[item]
 
-                # one_dict[int("quantity")] = [x * person_count for x in int(one_dict['quantity'])]
+                one_dict["quantity"] = [x * person_count for x in one_dict['quantity']]
 
-            new_dict.update({new_key: one_dict})
-        print(new_dict)
+                new_dict.update({new_key: one_dict})
+    print(new_dict)
 
 
         # print(cook_book[dishes])
 
-get_shop_list_by_dishes('Запеченный картофель', 2 , cook_book)
+get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 3, cook_book)
 
 
 
